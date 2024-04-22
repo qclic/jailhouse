@@ -516,6 +516,8 @@ struct {
 		PIO_RANGE(0x6090, 0x8),
 		/* Port I/O: efa0-efbf : 0000:00:1f.4 */
 		PIO_RANGE(0xefa0, 0x20),
+		/* Port I/O: 0x1804 : tiny-demo */
+		PIO_RANGE(0x1804, 0x2),
 	},
 
 	.pci_devices = {
