@@ -442,7 +442,7 @@ static int cell_shutdown_load(int argc, char *argv[],
 		    match_opt(argv[arg_num], "-a", "--address")) {
 			errno = 0;
 			image->target_address =
-				strtoll(argv[arg_num + 1], &endp, 0);
+				strtoull(argv[arg_num + 1], &endp, 0);
 			if (errno != 0 || *endp != 0)
 				help(argv[0], 1);
 			arg_num += 2;
