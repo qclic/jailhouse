@@ -1,9 +1,9 @@
 /*
  * Jailhouse, a Linux-based partitioning hypervisor
  *
- * ArceOS configuration for demo inmates, 1 CPU, 76 MB RAM, serial ports
+ * ArceOS configuration for demo inmates, 1 CPU, 64 MB RAM, serial ports
  *
- * Copyright (c) QY, 2024
+ * Copyright (c) ZCShou, 2024
  *
  * Authors:
  *  ZCShou <72115@163.com>
@@ -46,19 +46,19 @@ struct {
 	},
 
 	.cpus = {
-		0b0100,	/* use cpu2. used by bit */
+		0b1000,	/* use cpu3. used by bit */
 	},
 
 	.mem_regions = {
 		/* RAM */ {
 			.phys_start = 0x100600000,
 			.virt_start = 0,
-			.size = 0x4bff000,
+			.size = 0x4000000,
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
 		},
 		/* communication region */ {
-			.virt_start = 0x4bff000,
+			.virt_start = 0x4000000,
 			.size = 0x00001000,
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
 				JAILHOUSE_MEM_COMM_REGION,
