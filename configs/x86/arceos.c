@@ -51,28 +51,28 @@ struct {
 
 	.mem_regions = {
 		{	/* RAM for arceos-loader */
-			.phys_start = 0x100600000,
+			.phys_start = 0x700000,
 			.virt_start = 0,
 			.size = 0x00100000,		/* 1M */
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
 		},
 		{	/* communication region for hypervisor and the current cell */
-			.phys_start = 0x100700000,
+			.phys_start = 0x800000,
 			.virt_start = 0x00100000,
 			.size = 0x00080000,		/* 512K */
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
 				JAILHOUSE_MEM_COMM_REGION,
 		},
 		{	/* communication region for arceos-loader and arceos */
-			.phys_start = 0x100780000,
+			.phys_start = 0x880000,
 			.virt_start = 0x180000,
 			.size = 0x00080000,		/* 512K */
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
 				JAILHOUSE_MEM_COMM_REGION,
 		},
 		{	/* RAM for arceos */
-			.phys_start = 0x100800000,
+			.phys_start = 0x900000,
 			.virt_start = 0x200000,
 			.size = 0x3e00000,		/* 62M */
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |

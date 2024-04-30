@@ -13,7 +13,7 @@
  * by ZCShou <72115@163.com>.
  *
  * NOTE: This config expects the following to be appended to your kernel cmdline
- *       "memmap=0x5200000$0x100000000"
+ *       "memmap=0x5200000$0x100000"
  */
 
 #include <jailhouse/types.h>
@@ -33,7 +33,7 @@ struct {
 		.revision = JAILHOUSE_CONFIG_REVISION,
 		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
 		.hypervisor_memory = {
-			.phys_start = 0x100000000,
+			.phys_start = 0x100000,
 			.size = 0x600000,
 		},
 		.debug_console = {
@@ -108,11 +108,25 @@ struct {
 			.size = 0x10000,
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
 		},
-		/* MemRegion: 00100000-1c1bafff : System RAM */
+		/* MemRegion: 00100000-5fffff : Jailhouse hypervisor */
 		{
 			.phys_start = 0x100000,
 			.virt_start = 0x100000,
-			.size = 0x1c0bb000,
+			.size = 0x600000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 700000-5900000 : JAILHOUSE Inmate Memory */
+		{
+			.phys_start = 0x700000,
+			.virt_start = 0x700000,
+			.size = 0x4c00000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+		},
+		/* MemRegion: 5300000-1c1bafff : System RAM */
+		{
+			.phys_start = 0x5300000,
+			.virt_start = 0x5300000,
+			.size = 0x16ebafff,
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
 		},
@@ -287,14 +301,7 @@ struct {
 			.size = 0x8000,
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
 		},
-		/* MemRegion: 100000000-1005fffff : Jailhouse hypervisor */
-		{
-			.phys_start = 0x100000000,
-			.virt_start = 0x100000000,
-			.size = 0x600000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: 105200000-10b3ffffff : System RAM */
+		/* MemRegion: 100000000-10b3ffffff : System RAM */
 		{
 			.phys_start = 0x105200000,
 			.virt_start = 0x105200000,
@@ -436,13 +443,6 @@ struct {
 			.size = 0x20800000,
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 100600000-1051fffff : JAILHOUSE Inmate Memory */
-		{
-			.phys_start = 0x100600000,
-			.virt_start = 0x100600000,
-			.size = 0x4c00000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
 		},
 	},
 
