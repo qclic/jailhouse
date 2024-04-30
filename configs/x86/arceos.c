@@ -18,7 +18,7 @@
 struct {
 	struct jailhouse_cell_desc cell;
 	__u64 cpus[1];
-	struct jailhouse_memory mem_regions[2];
+	struct jailhouse_memory mem_regions[4];
 	struct jailhouse_cache cache_regions[1];
 	struct jailhouse_pio pio_regions[3];
 } __attribute__((packed)) config = {
@@ -50,18 +50,33 @@ struct {
 	},
 
 	.mem_regions = {
-		/* RAM */ {
+		{	/* RAM for arceos-loader */
 			.phys_start = 0x100600000,
 			.virt_start = 0,
-			.size = 0x4000000,
+			.size = 0x00100000,		/* 1M */
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
 				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
 		},
-		/* communication region */ {
-			.virt_start = 0x4000000,
-			.size = 0x00001000,
+		{	/* communication region for hypervisor and the current cell */
+			.phys_start = 0x100700000,
+			.virt_start = 0x00100000,
+			.size = 0x00080000,		/* 512K */
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
 				JAILHOUSE_MEM_COMM_REGION,
+		},
+		{	/* communication region for arceos-loader and arceos */
+			.phys_start = 0x100780000,
+			.virt_start = 0x180000,
+			.size = 0x00080000,		/* 512K */
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_COMM_REGION,
+		},
+		{	/* RAM for arceos */
+			.phys_start = 0x100800000,
+			.virt_start = 0x200000,
+			.size = 0x3e00000,		/* 62M */
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
 		},
 	},
 
