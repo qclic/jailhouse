@@ -26,6 +26,9 @@
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,11,0)
 #include <linux/sched/signal.h>
 #endif
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,7,0)
+#include <linux/kprobes.h>
+#endif
 #include <linux/slab.h>
 #include <linux/smp.h>
 #include <linux/uaccess.h>
@@ -201,8 +204,9 @@ static long get_max_cpus(u32 cpu_set_size,
 }
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(5,8,0)
+static typeof(__get_vm_area_caller) *__get_vm_area_caller_sym;
 #define __get_vm_area(size, flags, start, end)			\
-	__get_vm_area_caller(size, flags, start, end,		\
+	__get_vm_area_caller_sym(size, flags, start, end,		\
 			     __builtin_return_address(0))
 #endif
 
@@ -928,6 +932,31 @@ static int __init jailhouse_init(void)
 	symbol##_sym = (void *)kallsyms_lookup_name(#symbol);	\
 	if (!symbol##_sym)					\
 		return -EINVAL
+#elif defined(CONFIG_KALLSYMS_ALL) && LINUX_VERSION_CODE >= KERNEL_VERSION(5,7,0)
+
+#if !defined(CONFIG_KPROBES)
+#error Kprobe is required! please confirm 'CONFIG_KPROBES' option when compiling kernel.
+#else
+	struct kprobe kp = {
+		.symbol_name = "kallsyms_lookup_name",
+	};
+
+	/* typedef for kallsyms_lookup_name() so we can easily cast kp.addr */
+	typedef unsigned long (*kallsyms_lookup_name_t)(const char *name);
+	kallsyms_lookup_name_t kallsyms_lookup_name;
+
+	/* register the kprobe */
+	register_kprobe(&kp);
+	/* assign kallsyms_lookup_name symbol to kp.addr */
+	kallsyms_lookup_name = (kallsyms_lookup_name_t)kp.addr;
+	/* done with the kprobe, so unregister it */
+	unregister_kprobe(&kp);
+
+#define __RESOLVE_EXTERNAL_SYMBOL(symbol)			\
+	symbol##_sym = (void *)kallsyms_lookup_name(#symbol);	\
+	if (!symbol##_sym)					\
+		return -EINVAL
+#endif
 #else
 #define __RESOLVE_EXTERNAL_SYMBOL(symbol)			\
 	symbol##_sym = &symbol
@@ -935,6 +964,9 @@ static int __init jailhouse_init(void)
 #define RESOLVE_EXTERNAL_SYMBOL(symbol...) __RESOLVE_EXTERNAL_SYMBOL(symbol)
 
 	RESOLVE_EXTERNAL_SYMBOL(ioremap_page_range);
+	#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,8,0)
+	RESOLVE_EXTERNAL_SYMBOL(__get_vm_area_caller);
+	#endif
 #ifdef CONFIG_X86
 	RESOLVE_EXTERNAL_SYMBOL(lapic_timer_period);
 #endif
