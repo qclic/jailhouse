@@ -28,7 +28,6 @@ struct {
 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG | JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
 
 		.cpu_set_size = sizeof(config.cpus),
-		.cpu_reset_address = 0xb1000000,
 		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
 		.num_irqchips = ARRAY_SIZE(config.irqchips),
 
@@ -59,7 +58,7 @@ struct {
 		},
 
 		/* communication region */ {
-			.virt_start = 0x00100000,
+			.virt_start = 0x80000000,
 			.size		= 0x00001000,
 			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_COMM_REGION,
 		},
