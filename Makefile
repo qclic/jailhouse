@@ -47,7 +47,7 @@ modules_install: modules
 	$(Q)$(MAKE) $(kbuild)
 
 firmware_install: $(DESTDIR)$(firmwaredir) modules
-	$(INSTALL_DATA) hypervisor/jailhouse*.bin $<
+	echo $<
 
 tool_inmates_install: $(DESTDIR)$(libexecdir)/jailhouse
 	$(INSTALL_DATA) inmates/tools/$(ARCH)/*.bin $<

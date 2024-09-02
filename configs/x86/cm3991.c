@@ -34,7 +34,7 @@ struct {
 		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
 		.hypervisor_memory = {
 			.phys_start = 0x100000000,
-			.size = 0x600000,
+			.size = 0x3000000,
 		},
 		.debug_console = {
 			.address = 0x3f8,

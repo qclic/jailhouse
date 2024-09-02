@@ -52,7 +52,7 @@ struct {
 
 	.mem_regions = {
 		/* RAM */ {
-			.phys_start = 0x100600000,
+			.phys_start = 0x103000000,
 			.virt_start = 0,
 			.size = 0x00100000,
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |

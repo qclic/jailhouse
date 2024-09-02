@@ -56,7 +56,7 @@ $(GEN_PCI_DEFS_PY): $(src)/scripts/gen_pci_defs.sh $(src)/include/jailhouse/pci_
 
 targets += pyjailhouse/pci_defs.py
 
-subdir-y := hypervisor configs inmates tools
+subdir-y := configs inmates tools
 
 obj-m := driver/
 
