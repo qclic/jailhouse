@@ -19,7 +19,7 @@ void inmate_main(void)
 	void (*entry)(u64 dtb, u64 x1, u64 x2, u64 x3);
 
 	entry = (void *)0xb2000000;
-	dtb = 0xb1080000;
+	dtb = 0xb1800000;
 	printk("arceos-loader: entry: %p, dtb: %lx\n", entry, dtb);
 
 	/*
@@ -49,6 +49,8 @@ void inmate_main(void)
 		"mov x2, #0\n\t"
 		"mov x3, #0\n\t"
 		"msr sctlr_el1, %1\n\t"
+		"tlbi vmalle1\n\t"
+		"dsb nsh\n\t"
 		"isb\n\t"
 		"br %2" /* entry(dtb, 0, 0, 0) */
 		: : "r" (dtb), "r" (sctlr), "r" (entry)

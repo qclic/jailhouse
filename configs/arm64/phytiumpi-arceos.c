@@ -53,14 +53,14 @@ struct {
 		/* RAM for arceos-loader */ {
 			.phys_start = 0xb1000000,
 			.virt_start = 0x0,
-			.size		= 0x00080000,
+			.size		= 0x00800000,
 			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
 		},
 
 		/* RAM for dtb */ {
-			.phys_start = 0xb1080000,
-			.virt_start = 0xb1080000,
-			.size		= 0x00080000,
+			.phys_start = 0xb1800000,
+			.virt_start = 0xb1800000,
+			.size		= 0x00800000,
 			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
 		},
 
@@ -68,7 +68,7 @@ struct {
 			.phys_start = 0xb2000000,
 			.virt_start = 0xb2000000,
 			.size		= 0x0E000000,
-			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE | JAILHOUSE_MEM_DMA,
 		},
 
 		/* communication region for hypervisor and the current cell */ {
