@@ -1,7 +1,7 @@
 /*
  * Jailhouse, a Linux-based partitioning hypervisor
  *
- * Minimal configuration for tiny-cell-cm3991 inmates, 
+ * Minimal configuration for cm3991-tiny-cell inmates, 
  * 1 CPU, 1 MB RAM, serial ports
  *
  * Copyright (c) ZCShou, 2024
@@ -27,7 +27,7 @@ struct {
 		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
 		.revision = JAILHOUSE_CONFIG_REVISION,
 		.architecture = JAILHOUSE_X86,
-		.name = "tiny-cell-cm3991",
+		.name = "cm3991-tiny-cell",
 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
 			JAILHOUSE_CELL_TEST_DEVICE |
 			JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,

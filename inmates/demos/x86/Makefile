@@ -14,7 +14,7 @@ include $(INMATES_LIB)/Makefile.lib
 
 INMATES := tiny-demo.bin apic-demo.bin ioapic-demo.bin 32-bit-demo.bin \
 	pci-demo.bin e1000-demo.bin ivshmem-demo.bin smp-demo.bin \
-	cache-timings.bin tiny-cell-massdatas-gxxa203.bin tiny-cell-cm3991.bin
+	cache-timings.bin tiny-cell-massdatas-gxxa203.bin cm3991-tiny-cell.bin
 
 tiny-demo-y	:= tiny-demo.o
 apic-demo-y	:= apic-demo.o
@@ -25,7 +25,7 @@ ivshmem-demo-y	:= ../ivshmem-demo.o
 smp-demo-y	:= smp-demo.o
 cache-timings-y := cache-timings.o
 tiny-cell-massdatas-gxxa203-y	:= tiny-cell-massdatas-gxxa203.o
-tiny-cell-cm3991-y	:= tiny-cell-cm3991.o
+cm3991-tiny-cell-y	:= cm3991-tiny-cell.o
 
 $(eval $(call DECLARE_32_BIT,32-bit-demo))
 32-bit-demo-y	:= 32-bit-demo.o

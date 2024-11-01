@@ -12,8 +12,9 @@
 
 include $(INMATES_LIB)/Makefile.lib
 
-INMATES := linux-loader.bin
+INMATES := linux-loader.bin arceos-loader.bin
 
 linux-loader-y := linux-loader.o
+arceos-loader-y := arceos-loader.o
 
 $(eval $(call DECLARE_TARGETS,$(INMATES)))

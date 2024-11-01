@@ -17,7 +17,7 @@ void inmate_main(void)
 	unsigned long long start, now;
 	int n;
 
-	printk("Hello from this tiny cell!\n");
+	printk("Hello from cm3991-tiny-cell!\n");
 
 	start = pm_timer_read();
 	for (n = 0; n < 10; n++) {
