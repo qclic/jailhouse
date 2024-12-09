@@ -77,7 +77,7 @@
 	};
 
 	uart1: serial@fe215040 {
-		compatible = "arm,pl011", "brcm,bcm2835-aux-uart";
+		compatible = "brcm,bcm2835-aux-uart";
 		reg = <0x0 0xfe215040 0x0 0x40>;
 		interrupts = <GIC_SPI 93 IRQ_TYPE_LEVEL_HIGH>;
 		clocks = <&fixed>;
