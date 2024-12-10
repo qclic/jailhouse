@@ -24,7 +24,7 @@
 	interrupt-parent = <&gic>;
 
     chosen {
-        stdout-path = &uart1;
+        stdout-path = &uart0;
     };
 
 	memory@41000000 {
@@ -76,10 +76,10 @@
 		clock-output-names = "clk500mhz";
 	};
 
-	uart1: serial@fe215040 {
-		compatible = "brcm,bcm2835-aux-uart";
-		reg = <0x0 0xfe215040 0x0 0x40>;
-		interrupts = <GIC_SPI 93 IRQ_TYPE_LEVEL_HIGH>;
+	uart0: serial@fe201000 {
+		compatible = "arm,pl011", "arm,primecell";
+		reg = <0xfe201000 0x200>;
+		interrupts = <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>;
 		clocks = <&fixed>;
 		status = "okay";
 	};

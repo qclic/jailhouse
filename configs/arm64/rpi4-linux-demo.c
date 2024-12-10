@@ -39,8 +39,8 @@ struct {
 		.vpci_irq_base = 185-32,
 
 		.console = {
-			.address = 0xfe215040,
-			.type = JAILHOUSE_CON_TYPE_8250,
+			.address = 0xfe201000,
+			.type = JAILHOUSE_CON_TYPE_PL011,
 			.flags = JAILHOUSE_CON_ACCESS_MMIO |
 				 JAILHOUSE_CON_REGDIST_4,
 		},
@@ -87,9 +87,9 @@ struct {
 		/* IVSHMEM shared memory region */
 		JAILHOUSE_SHMEM_NET_REGIONS(0x1fb00000, 1),
 		/* UART */ {
-			.phys_start = 0xfe215040,
-			.virt_start = 0xfe215040,
-			.size = 0x40,
+			.phys_start = 0xfe201000,
+			.virt_start = 0xfe201000,
+			.size = 0x1000,
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
 				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 |
 				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,

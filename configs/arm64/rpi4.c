@@ -30,9 +30,9 @@ struct {
 			.size       = 0x01000000,
 		},
 		.debug_console = {
-			.address = 0xfe215040,
-			.size = 0x40,
-			.type = JAILHOUSE_CON_TYPE_8250,
+			.address = 0xfe201000,
+			.size = 0x1000,
+			.type = JAILHOUSE_CON_TYPE_PL011,
 			.flags = JAILHOUSE_CON_ACCESS_MMIO |
 				 JAILHOUSE_CON_REGDIST_4,
 		},
