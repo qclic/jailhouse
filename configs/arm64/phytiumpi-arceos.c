@@ -17,7 +17,7 @@
 struct {
 	struct jailhouse_cell_desc cell;
 	__u64 cpus[1];
-	struct jailhouse_memory mem_regions[5];
+	struct jailhouse_memory mem_regions[9];
 	struct jailhouse_irqchip irqchips[1];
 } __attribute__((packed)) config = {
 	.cell = {
@@ -50,6 +50,35 @@ struct {
 			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
 		},
 
+		/* PCIe ECAM */
+		{
+			.phys_start = 0x40000000,
+			.virt_start = 0x40000000,
+			.size		= 0x10000000,
+			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		/* PCIe IO */
+		{
+			.phys_start = 0x50000000,
+			.virt_start = 0x50000000,
+			.size		= 0x00F00000,
+			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		/* PCIe Mem32 */
+		{
+			.phys_start = 0x58000000,
+			.virt_start = 0x58000000,
+			.size		= 0x28000000,
+			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		/* PCIe Mem64 */
+		{
+			.phys_start = 0x1000000000,
+			.virt_start = 0x1000000000,
+			.size		= 0x1000000000,
+			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+		},
+		
 		/* RAM for arceos-loader */ {
 			.phys_start = 0xb1000000,
 			.virt_start = 0x0,
