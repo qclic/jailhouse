@@ -33,8 +33,8 @@ struct {
 
 		.console = {
 			.address = 0x2800d000,
-			.type    = JAILHOUSE_CON_TYPE_PL011,
-			.flags   = JAILHOUSE_CON_ACCESS_MMIO | JAILHOUSE_CON_REGDIST_4,
+			.type = JAILHOUSE_CON_TYPE_PL011,
+			.flags = JAILHOUSE_CON_ACCESS_MMIO | JAILHOUSE_CON_REGDIST_4,
 		},
 	},
 
@@ -43,67 +43,67 @@ struct {
 	},
 
 	.mem_regions = {
-		/* UART 1 */ {
+		/* UART 1 */
+		{
 			.phys_start = 0x2800d000,
 			.virt_start = 0x2800d000,
-			.size		= 0x1000,
-			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+			.size = 0x1000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
 		},
-
 		/* PCIe ECAM */
 		{
 			.phys_start = 0x40000000,
 			.virt_start = 0x40000000,
-			.size		= 0x10000000,
-			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+			.size = 0x10000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
 		},
 		/* PCIe IO */
 		{
 			.phys_start = 0x50000000,
 			.virt_start = 0x50000000,
-			.size		= 0x00F00000,
-			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+			.size = 0x00F00000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
 		},
 		/* PCIe Mem32 */
 		{
 			.phys_start = 0x58000000,
 			.virt_start = 0x58000000,
-			.size		= 0x28000000,
-			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+			.size = 0x28000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
 		},
 		/* PCIe Mem64 */
 		{
 			.phys_start = 0x1000000000,
 			.virt_start = 0x1000000000,
-			.size		= 0x1000000000,
-			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+			.size = 0x1000000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
 		},
-		
-		/* RAM for arceos-loader */ {
+		/* RAM for arceos-loader */
+		{
 			.phys_start = 0xb1000000,
 			.virt_start = 0x0,
-			.size		= 0x00800000,
-			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+			.size = 0x00800000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
 		},
-
-		/* RAM for dtb */ {
+		/* RAM for dtb */
+		{
 			.phys_start = 0xb1800000,
 			.virt_start = 0xb1800000,
-			.size		= 0x00800000,
-			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+			.size = 0x00800000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
 		},
-
-		/* RAM for arceos */ {
+		/* RAM for arceos */
+		{
 			.phys_start = 0xb2000000,
 			.virt_start = 0xb2000000,
-			.size		= 0x0E000000,
-			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE | JAILHOUSE_MEM_DMA,
+			.size = 0x0E000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE | JAILHOUSE_MEM_DMA,
 		},
-
-		/* communication region for hypervisor and the current cell */ {
+		/* communication region for hypervisor and the current cell */
+		{
 			.virt_start = 0x80000000,
-			.size		= 0x00001000,
-			.flags		= JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_COMM_REGION,
+			.size = 0x00001000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_COMM_REGION,
 		},
 	},
 
@@ -113,9 +113,11 @@ struct {
 			.address = 0x30800000,
 			.pin_base = 32,
 			.pin_bitmap = {
-				0x1 << (36 - 32) /* SPI 36 pcie_inta */
+				/* pcie_inta=36 */
+				1 << (36 - 32),
+				/* UART1=116 */
+				1 << (116 - 96),
 			},
 		},
 	},
 };
-
