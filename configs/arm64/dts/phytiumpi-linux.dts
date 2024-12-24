@@ -1,8 +1,8 @@
 /*
  * Jailhouse, a Linux-based partitioning hypervisor
  *
- * Device tree for arceos test on Phytium Pi,
- * corresponds to configs/arm64/phytiumpi-arceos.c
+ * Device tree for linux test on Phytium Pi,
+ * corresponds to configs/arm64/phytiumpi-linux.c
  *
  * Copyright (c) 2022-2024 ZCShou
  *
