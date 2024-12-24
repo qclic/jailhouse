@@ -1,7 +1,9 @@
 /*
  * Jailhouse, a Linux-based partitioning hypervisor
  *
- * Configuration for Phytium E2000Q
+ * Device tree for linux test on Raspberry Pi 4,
+ * corresponds to configs/arm64/rpi4-linux.c
+ *
  * Copyright (c) 2022-2024 ZCShou
  *
  * Authors:
@@ -17,28 +19,42 @@
 
 / {
 	model = "Jailhouse cell on Raspberry Pi 4";
-
 	#address-cells = <2>;
 	#size-cells = <2>;
-
 	interrupt-parent = <&gic>;
 
-    chosen {
-        stdout-path = &uart0;
-    };
+	hypervisor {
+		compatible = "jailhouse,cell";
+	};
+
+	aliases {
+		serial1 = &uart0;
+	};
+
+	chosen {
+		stdout-path = &uart0;
+	};
 
 	memory@41000000 {
 		reg = <0x00000000 0x42000000 0x00000000 0x0E000000>;
 		device_type = "memory";
 	};
 
-	hypervisor {
-		compatible = "jailhouse,cell";
+	psci {
+		compatible = "arm,psci-0.2";
+		method = "smc";
 	};
 
 	cpus {
 		#address-cells = <1>;
 		#size-cells = <0>;
+
+		cpu2: cpu@2 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a72";
+			reg = <2>;
+			enable-method = "psci";
+		};
 
 		cpu3: cpu@3 {
 			device_type = "cpu";
@@ -46,11 +62,6 @@
 			reg = <3>;
 			enable-method = "psci";
 		};
-	};
-
-	psci {
-		compatible = "arm,psci-0.2";
-		method = "smc";
 	};
 
 	timer {
