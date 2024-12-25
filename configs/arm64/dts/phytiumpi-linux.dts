@@ -16,7 +16,7 @@
 #include <dt-bindings/interrupt-controller/arm-gic.h>
 
 /dts-v1/;
-/memreserve/ 0x80000000 0x10000;
+/memreserve/ 0xb2000000 0x10000;
 
 / {
 	compatible = "phytium,pe2204";
@@ -30,7 +30,7 @@
 	};
 
 	aliases {
-		serial1 = &uart1;
+		serial1 = &uart2;
 	};
 
 	chosen {
@@ -38,7 +38,7 @@
 	};
 
 	memory@b1000000 {
-		reg = <0x00000000 0xb2000000 0x00000000 0x0e000000>;
+		reg = <0x00000000 0xb2000000 0x00000000 0x2e000000>;
 		device_type = "memory";
 	};
 
@@ -196,10 +196,10 @@
 		dma-coherent;
 		ranges;
 
-		uart1: uart@2800d000 {
+		uart2: uart@2800e000 {
 			compatible = "arm,pl011","arm,primecell";
-			reg = <0x0 0x2800d000 0x0 0x1000>;
-			interrupts = <GIC_SPI 84 IRQ_TYPE_LEVEL_HIGH>;
+			reg = <0x0 0x2800e000 0x0 0x1000>;
+			interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
 			clocks = <&sysclk_100mhz &sysclk_100mhz>;
 			clock-names = "uartclk", "apb_pclk";
 			status = "okay";
