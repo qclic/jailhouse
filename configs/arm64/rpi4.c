@@ -17,7 +17,7 @@
 struct {
 	struct jailhouse_system header;
 	__u64 cpus[1];
-	struct jailhouse_memory mem_regions[5];
+	struct jailhouse_memory mem_regions[4];
 	struct jailhouse_irqchip irqchips[2];
 } __attribute__((packed)) config = {
 	.header = {
@@ -74,24 +74,17 @@ struct {
 		{
 			.phys_start = 0x40000000,
 			.virt_start = 0x40000000,
-			.size = 0xc0000000,
+			.size = 0xbd500000,
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE,
 		},
-		/* Main peripherals */
+		/* MMIO 1 (permissive) */
 		{
-			.phys_start = 0x47c000000,
-			.virt_start = 0x47c000000,
-			.size = 0x4000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE,
+			.phys_start = 0xfd500000,
+			.virt_start = 0xfd500000,
+			.size = 0x1b00000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO,
 		},
-		/* ARM local peripherals */
-		{
-			.phys_start = 0x4c0000000,
-			.virt_start = 0x4c0000000,
-			.size = 0x40000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE,
-		},
-		/* PCIe */
+		/* MMIO 1 （PCIe） */
 		{
 			.phys_start = 0x600000000,
 			.virt_start = 0x600000000,
