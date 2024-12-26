@@ -43,12 +43,12 @@ struct {
 	},
 
 	.mem_regions = {
-		/* UART 1 */
+		/* UART2 */
 		{
 			.phys_start = 0x2800e000,
 			.virt_start = 0x2800e000,
 			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO,
 		},
 		/* PCIe ECAM */
 		{
@@ -92,14 +92,14 @@ struct {
 			.size = 0x00800000,
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
 		},
-		/* RAM for dtb */
+		/* RAM for dtb（unused） */
 		{
 			.phys_start = 0xb1800000,
 			.virt_start = 0xb1800000,
 			.size = 0x00800000,
 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
 		},
-		/* RAM for arceos */
+		/* RAM for linux */
 		{
 			.phys_start = 0xb2000000,
 			.virt_start = 0xb2000000,
