@@ -17,7 +17,7 @@
 struct {
 	struct jailhouse_system header;
 	__u64 cpus[1];
-	struct jailhouse_memory mem_regions[6];
+	struct jailhouse_memory mem_regions[5];
 	struct jailhouse_irqchip irqchips[2];
 } __attribute__((packed)) config = {
 	.header = {
@@ -33,8 +33,7 @@ struct {
 			.address = 0xfe201000,
 			.size = 0x1000,
 			.type = JAILHOUSE_CON_TYPE_PL011,
-			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-				 JAILHOUSE_CON_REGDIST_4,
+			.flags = JAILHOUSE_CON_ACCESS_MMIO | JAILHOUSE_CON_REGDIST_4,
 		},
 		.platform_info = {
 			.pci_mmconfig_base = 0xff900000,
@@ -64,66 +63,54 @@ struct {
 	},
 
 	.mem_regions = {
-		/* MMIO 1 (permissive) */ {
-			.phys_start = 0xfd500000,
-			.virt_start = 0xfd500000,
-			.size =        0x1b00000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* MMIO 2 (permissive) */ {
-			.phys_start = 0x600000000,
-			.virt_start = 0x600000000,
-			.size =         0x4000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-
-		/* RAM (0M-~1274M) */ {
+		/* RAM for the ARM + VC */
+		{
  			.phys_start = 0x0,
  			.virt_start = 0x0,
-			.size = 0x4fa10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
+			.size = 0x40000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE,
 		},
-
-		/* ~6M reserved for the hypervisor and the shared memory regions */
-
-		/* RAM (1280M-3584M) */ {
-			.phys_start = 0x50000000,
-			.virt_start = 0x50000000,
-			.size = 0x90000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
+		/* RAM (for the ARM) */
+		{
+			.phys_start = 0x40000000,
+			.virt_start = 0x40000000,
+			.size = 0xc0000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE,
 		},
-
-		/* 2M reserved for PCI MMIO space */
-
-		/* RAM (3586M-4032M) */ {
-			.phys_start = 0xe0200000,
-			.virt_start = 0xe0200000,
-			.size = 0x1be00000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
+		/* Main peripherals */
+		{
+			.phys_start = 0x47c000000,
+			.virt_start = 0x47c000000,
+			.size = 0x4000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE,
 		},
-		/* RAM (4096M-8192M) */ {
-			.phys_start = 0x100000000,
-			.virt_start = 0x100000000,
-			.size = 0x100000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
+		/* ARM local peripherals */
+		{
+			.phys_start = 0x4c0000000,
+			.virt_start = 0x4c0000000,
+			.size = 0x40000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE,
+		},
+		/* PCIe */
+		{
+			.phys_start = 0x600000000,
+			.virt_start = 0x600000000,
+			.size = 0x4000000,
+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_IO,
 		},
 	},
 
 	.irqchips = {
-		/* GIC */ {
+		/* GIC */
+		{
 			.address = 0xff841000,
 			.pin_base = 32,
 			.pin_bitmap = {
 				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
 			},
 		},
-		/* GIC */ {
+		/* GIC */
+		{
 			.address = 0xff841000,
 			.pin_base = 160,
 			.pin_bitmap = {

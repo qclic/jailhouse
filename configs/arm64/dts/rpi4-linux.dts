@@ -28,15 +28,15 @@
 	};
 
 	aliases {
-		serial1 = &uart0;
+		serial0 = &uart0;
 	};
 
 	chosen {
-		stdout-path = &uart0;
+		stdout-path = "serial0:115200n8";
 	};
 
 	memory@41000000 {
-		reg = <0x00000000 0x42000000 0x00000000 0x0E000000>;
+		reg = <0x00000000 0x42000000 0x00000000 0x2e000000>;
 		device_type = "memory";
 	};
 
@@ -110,5 +110,6 @@
 		reg = <0x0 0xff900000 0x0 0x100000>;
 		ranges =
 			<0x02000000 0x00 0x20000000 0x0 0x20000000 0x00 0x10000>;
+		status = "disabled";
 	};
 };
